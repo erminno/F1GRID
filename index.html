@@ -85,11 +85,13 @@
 </head>
 <body class="min-h-screen flex flex-col items-center justify-start p-4 transition-colors duration-500 overflow-x-hidden">
 
-    <!-- SETTINGS BUTTON -->
-    <div class="absolute top-4 right-4 z-50">
-        <button onclick="toggleLanguage()" class="bg-gray-800 p-3 rounded-full hover:bg-gray-700 transition shadow-lg border border-gray-600">
-            <i class="fas fa-globe text-white"></i>
-            <span id="lang-indicator" class="ml-2 font-bold text-xs">IT</span>
+    <!-- SETTINGS BUTTONS -->
+    <div class="absolute top-4 right-4 z-50 flex gap-2">
+        <button onclick="SoundManager.toggleMute()" id="sound-btn" class="bg-gray-800 p-3 rounded-full hover:bg-gray-700 transition shadow-lg border border-gray-600 w-12 h-12 flex items-center justify-center">
+            <i class="fas fa-volume-up text-white" id="sound-icon"></i>
+        </button>
+        <button onclick="toggleLanguage()" class="bg-gray-800 p-3 rounded-full hover:bg-gray-700 transition shadow-lg border border-gray-600 h-12 flex items-center justify-center min-w-[3rem]">
+            <span id="lang-indicator" class="font-bold text-xs text-white">IT</span>
         </button>
     </div>
 
@@ -99,10 +101,9 @@
             F1 <span class="text-red-600">GRID</span>
         </h1>
         
-        
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-4xl">
             <!-- Mode 1: 1 VS 1 (Versus) -->
-            <button onclick="startGame('versus')" class="mode-card bg-gray-800 border-2 border-blue-500 p-6 rounded-3xl text-left relative overflow-hidden group h-40">
+            <button onclick="SoundManager.play('click'); startGame('versus')" class="mode-card bg-gray-800 border-2 border-blue-500 p-6 rounded-3xl text-left relative overflow-hidden group h-40">
                 <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
                     <i class="fas fa-user-friends text-8xl"></i>
                 </div>
@@ -112,7 +113,7 @@
             </button>
 
             <!-- Mode 2: Grid Bingo (ex Solo Challenge) -->
-            <button onclick="startGame('solo')" class="mode-card bg-gray-800 border-2 border-green-500 p-6 rounded-3xl text-left relative overflow-hidden group h-40">
+            <button onclick="SoundManager.play('click'); startGame('solo')" class="mode-card bg-gray-800 border-2 border-green-500 p-6 rounded-3xl text-left relative overflow-hidden group h-40">
                 <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
                     <i class="fas fa-th text-8xl"></i>
                 </div>
@@ -122,7 +123,7 @@
             </button>
 
             <!-- Mode 3: Indovina la Carriera -->
-            <button onclick="showSubMenu('career')" class="mode-card bg-gray-800 border-2 border-yellow-500 p-6 rounded-3xl text-left relative overflow-hidden group h-40">
+            <button onclick="SoundManager.play('click'); showSubMenu('career')" class="mode-card bg-gray-800 border-2 border-yellow-500 p-6 rounded-3xl text-left relative overflow-hidden group h-40">
                 <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
                     <i class="fas fa-route text-8xl"></i>
                 </div>
@@ -132,7 +133,7 @@
             </button>
 
             <!-- Mode 4: Confronto -->
-            <button onclick="showSubMenu('compare')" class="mode-card bg-gray-800 border-2 border-purple-500 p-6 rounded-3xl text-left relative overflow-hidden group h-40">
+            <button onclick="SoundManager.play('click'); showSubMenu('compare')" class="mode-card bg-gray-800 border-2 border-purple-500 p-6 rounded-3xl text-left relative overflow-hidden group h-40">
                 <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
                     <i class="fas fa-balance-scale text-8xl"></i>
                 </div>
@@ -148,14 +149,14 @@
         <div class="bg-gray-800 w-full max-w-sm rounded-2xl shadow-2xl border border-gray-600 p-6 text-center">
             <h3 id="submenu-title" class="text-2xl font-bold text-white mb-6">Seleziona Modalità</h3>
             <div class="space-y-4">
-                <button onclick="selectSubMode('daily')" class="w-full bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-500 hover:to-red-500 text-white font-bold py-4 rounded-xl shadow-lg transform transition hover:scale-105">
+                <button onclick="SoundManager.play('click'); selectSubMode('daily')" class="w-full bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-500 hover:to-red-500 text-white font-bold py-4 rounded-xl shadow-lg transform transition hover:scale-105">
                     <i class="fas fa-calendar-day mr-2"></i> <span data-i18n="btn_daily">Giornaliera</span>
                 </button>
-                <button onclick="selectSubMode('infinite')" class="w-full bg-gray-700 hover:bg-gray-600 text-white font-bold py-4 rounded-xl shadow-lg transform transition hover:scale-105">
+                <button onclick="SoundManager.play('click'); selectSubMode('infinite')" class="w-full bg-gray-700 hover:bg-gray-600 text-white font-bold py-4 rounded-xl shadow-lg transform transition hover:scale-105">
                     <i class="fas fa-infinity mr-2"></i> <span data-i18n="btn_infinite">Infinita</span>
                 </button>
             </div>
-            <button onclick="closeSubMenu()" class="mt-6 text-gray-400 hover:text-white underline text-sm">Annulla</button>
+            <button onclick="SoundManager.play('click'); closeSubMenu()" class="mt-6 text-gray-400 hover:text-white underline text-sm">Annulla</button>
         </div>
     </div>
 
@@ -173,7 +174,7 @@
     <div id="game-screen" class="hidden w-full max-w-2xl flex-col items-center fade-in">
         <header class="w-full flex justify-between items-center mb-6 mt-4">
             <div class="flex items-center gap-4">
-                <button onclick="backToMenu()" class="bg-gray-800 p-2 rounded-xl hover:bg-gray-700 transition-colors text-gray-400 hover:text-white">
+                <button onclick="SoundManager.play('click'); backToMenu()" class="bg-gray-800 p-2 rounded-xl hover:bg-gray-700 transition-colors text-gray-400 hover:text-white">
                     <i class="fas fa-arrow-left"></i>
                 </button>
                 <div>
@@ -184,7 +185,7 @@
             
             <div class="flex gap-3">
                 <div id="stats-container" class="bg-gray-800 px-4 py-2 rounded-2xl border border-gray-700 shadow-lg flex items-center gap-2"></div>
-                <button onclick="resetBoard()" class="bg-red-600 hover:bg-red-700 text-white p-3 rounded-2xl shadow-lg transition-colors">
+                <button onclick="SoundManager.play('click'); resetBoard()" class="bg-red-600 hover:bg-red-700 text-white p-3 rounded-2xl shadow-lg transition-colors">
                     <i class="fas fa-redo-alt"></i>
                 </button>
             </div>
@@ -221,7 +222,7 @@
     <!-- TRIVIA SCREEN (Career & Compare) -->
     <div id="trivia-screen" class="hidden w-full max-w-2xl flex-col items-center fade-in mt-4 mb-8">
         <header class="w-full flex justify-between items-center mb-6">
-             <button onclick="backToMenu()" class="bg-gray-800 p-2 rounded-xl hover:bg-gray-700 text-gray-400">
+             <button onclick="SoundManager.play('click'); backToMenu()" class="bg-gray-800 p-2 rounded-xl hover:bg-gray-700 text-gray-400">
                 <i class="fas fa-arrow-left"></i>
             </button>
             <div class="flex flex-col items-center">
@@ -239,7 +240,7 @@
         </main>
 
         <div id="trivia-controls" class="w-full mt-6 flex justify-center h-16">
-             <button id="trivia-next-btn" onclick="nextTriviaRound()" class="hidden bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition hover:scale-105">
+             <button id="trivia-next-btn" onclick="SoundManager.play('click'); nextTriviaRound()" class="hidden bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition hover:scale-105">
                 <span data-i18n="btn_next">Prossimo</span> <i class="fas fa-arrow-right ml-2"></i>
             </button>
         </div>
@@ -250,8 +251,8 @@
         <h2 id="game-over-title" class="text-4xl font-bold mb-4 text-white">GAME OVER</h2>
         <p id="game-over-message" class="text-gray-300 mb-8">Risultato</p>
         <div class="flex gap-4">
-            <button onclick="backToMenu()" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-full transition-all" data-i18n="btn_menu">Menu</button>
-            <button onclick="resetBoard()" class="bg-red-600 hover:bg-red-500 text-white font-bold py-3 px-8 rounded-full transition-all shadow-lg shadow-red-600/30" data-i18n="btn_replay">Rigioca</button>
+            <button onclick="SoundManager.play('click'); backToMenu()" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-full transition-all" data-i18n="btn_menu">Menu</button>
+            <button onclick="SoundManager.play('click'); resetBoard()" class="bg-red-600 hover:bg-red-500 text-white font-bold py-3 px-8 rounded-full transition-all shadow-lg shadow-red-600/30" data-i18n="btn_replay">Rigioca</button>
         </div>
     </div>
 
@@ -274,10 +275,127 @@
     </div>
 
     <script>
+        // --- SOUND MANAGER ---
+        const SoundManager = {
+            audioCtx: null,
+            muted: false,
+            
+            init: function() {
+                if (!this.audioCtx) {
+                    this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+            },
+
+            toggleMute: function() {
+                this.muted = !this.muted;
+                const icon = document.getElementById('sound-icon');
+                if (this.muted) {
+                    icon.classList.remove('fa-volume-up');
+                    icon.classList.add('fa-volume-mute');
+                    icon.classList.add('text-red-500');
+                    icon.classList.remove('text-white');
+                } else {
+                    icon.classList.add('fa-volume-up');
+                    icon.classList.remove('fa-volume-mute');
+                    icon.classList.remove('text-red-500');
+                    icon.classList.add('text-white');
+                    this.play('click'); // Feedback
+                }
+                return this.muted;
+            },
+
+            play: function(type) {
+                if (this.muted) return;
+                if (!this.audioCtx) this.init();
+                if (this.audioCtx.state === 'suspended') this.audioCtx.resume();
+
+                const ctx = this.audioCtx;
+                const osc = ctx.createOscillator();
+                const gainNode = ctx.createGain();
+
+                osc.connect(gainNode);
+                gainNode.connect(ctx.destination);
+
+                const now = ctx.currentTime;
+
+                switch (type) {
+                    case 'click':
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(800, now);
+                        osc.frequency.exponentialRampToValueAtTime(300, now + 0.05);
+                        gainNode.gain.setValueAtTime(0.05, now);
+                        gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+                        osc.start(now);
+                        osc.stop(now + 0.05);
+                        break;
+                    
+                    case 'success':
+                        // Major Arpeggio
+                        this.playTone(523.25, 'sine', 0.1, 0); // C
+                        this.playTone(659.25, 'sine', 0.1, 0.1); // E
+                        this.playTone(783.99, 'sine', 0.2, 0.2); // G
+                        break;
+
+                    case 'error':
+                        osc.type = 'sawtooth';
+                        osc.frequency.setValueAtTime(150, now);
+                        osc.frequency.linearRampToValueAtTime(50, now + 0.3);
+                        gainNode.gain.setValueAtTime(0.1, now);
+                        gainNode.gain.linearRampToValueAtTime(0.001, now + 0.3);
+                        osc.start(now);
+                        osc.stop(now + 0.3);
+                        break;
+
+                    case 'win':
+                        this.playTone(523.25, 'square', 0.1, 0); 
+                        this.playTone(659.25, 'square', 0.1, 0.1); 
+                        this.playTone(783.99, 'square', 0.1, 0.2); 
+                        this.playTone(1046.50, 'square', 0.4, 0.3); 
+                        break;
+
+                     case 'gameover':
+                        this.playTone(300, 'triangle', 0.2, 0);
+                        this.playTone(250, 'triangle', 0.2, 0.2);
+                        this.playTone(200, 'triangle', 0.4, 0.4);
+                        break;
+                        
+                    case 'start':
+                        // Engine Rev effect
+                        osc.type = 'sawtooth';
+                        osc.frequency.setValueAtTime(100, now);
+                        osc.frequency.exponentialRampToValueAtTime(400, now + 0.3);
+                        gainNode.gain.setValueAtTime(0.1, now);
+                        gainNode.gain.linearRampToValueAtTime(0.001, now + 0.3);
+                        osc.start(now);
+                        osc.stop(now + 0.3);
+                        break;
+                }
+            },
+
+            playTone: function(freq, type, duration, delay) {
+                if (this.muted) return;
+                const ctx = this.audioCtx;
+                const osc = ctx.createOscillator();
+                const gainNode = ctx.createGain();
+                
+                osc.connect(gainNode);
+                gainNode.connect(ctx.destination);
+                
+                const now = ctx.currentTime + delay;
+                osc.type = type;
+                osc.frequency.value = freq;
+                
+                gainNode.gain.setValueAtTime(0.05, now);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, now + duration);
+                
+                osc.start(now);
+                osc.stop(now + duration);
+            }
+        };
+
         // --- TRANSLATIONS ---
         const translations = {
             it: {
-                
                 mode_versus_title: "Battaglia 1 VS 1",
                 mode_versus_desc: "Sfida un amico. Giocatore 1 (Blu) vs Giocatore 2 (Rosso). Griglia garantita (Min 3 opzioni).",
                 mode_solo_title: "Grid Bingo",
@@ -310,7 +428,6 @@
                 stat_teams_count: "Numero Scuderie",
                 stat_ppr: "Media Punti/Gara",
                 career_path: "Percorso Carriera",
-                // Specific Labels
                 UK: "Regno Unito", DE: "Germania", BR: "Brasile", FI: "Finlandia",
                 FR: "Francia", AU: "Australia", ES: "Spagna", IT: "Italia", NL: "Olanda", 
                 MX: "Messico", CA: "Canada", JP: "Giappone", TH: "Thailandia", MC: "Monaco", US: "USA", 
@@ -322,7 +439,6 @@
                 points: "Punti in Carriera"
             },
             en: {
-                
                 mode_versus_title: "1 VS 1 Battle",
                 mode_versus_desc: "Challenge a friend. Solvable Grid (Min 3 options per cell).",
                 mode_solo_title: "Grid Bingo",
@@ -370,9 +486,7 @@
         let currentLang = 'it';
 
         // --- DRIVER DATABASE 1970-2025 (EXPANDED) ---
-        // Stats Updated December 2025
         const drivers = [
-             // --- 2025 Grid (and recent) ---
             { id: "lewis", name: "Lewis Hamilton", teams: ["Mercedes", "Ferrari", "McLaren"], timeline: [{t:"Ferrari", y:"2025-"}, {t:"Mercedes", y:"2013-2024"}, {t:"McLaren", y:"2007-2012"}], country: "UK", champion: true, wins: true, podiums: true, poles: true, win_monaco: true, win_monza: true, win_silverstone: true, win_spa: true, stat_wins: 105, stat_podiums: 201, stat_titles: 7, stat_starts: 353, stat_points: 4850, stat_fastest_laps: 67, stat_seasons: 19 },
             { id: "max", name: "Max Verstappen", teams: ["Red Bull", "Toro Rosso"], timeline: [{t:"Red Bull", y:"2016-2025"}, {t:"Toro Rosso", y:"2015-2016"}], country: "Netherlands", champion: true, wins: true, podiums: true, poles: true, win_monaco: true, win_monza: true, win_silverstone: true, win_spa: true, stat_wins: 63, stat_podiums: 112, stat_titles: 4, stat_starts: 208, stat_points: 3000, stat_fastest_laps: 33, stat_seasons: 11 },
             { id: "charles", name: "Charles Leclerc", teams: ["Ferrari", "Sauber"], timeline: [{t:"Ferrari", y:"2019-2025"}, {t:"Sauber", y:"2018"}], country: "Monaco", champion: false, wins: true, podiums: true, poles: true, win_monaco: true, win_monza: true, win_silverstone: false, win_spa: true, stat_wins: 9, stat_podiums: 42, stat_titles: 0, stat_starts: 146, stat_points: 1350, stat_fastest_laps: 11, stat_seasons: 8 },
@@ -394,8 +508,6 @@
             { id: "gabriel", name: "Gabriel Bortoleto", teams: ["Sauber"], timeline: [{t:"Sauber", y:"2025-"}], country: "Brazil", champion: false, wins: false, podiums: false, poles: false, win_monaco: false, win_monza: false, win_silverstone: false, win_spa: false, stat_wins: 0, stat_podiums: 0, stat_titles: 0, stat_starts: 0, stat_points: 0, stat_fastest_laps: 0, stat_seasons: 1 },
             { id: "jack", name: "Jack Doohan", teams: ["Alpine"], timeline: [{t:"Alpine", y:"2025-"}], country: "Australia", champion: false, wins: false, podiums: false, poles: false, win_monaco: false, win_monza: false, win_silverstone: false, win_spa: false, stat_wins: 0, stat_podiums: 0, stat_titles: 0, stat_starts: 0, stat_points: 0, stat_fastest_laps: 0, stat_seasons: 1 },
             { id: "liam", name: "Liam Lawson", teams: ["RB", "AlphaTauri"], timeline: [{t:"RB", y:"2024-2025"}, {t:"AlphaTauri", y:"2023"}], country: "New Zealand", champion: false, wins: false, podiums: false, poles: false, win_monaco: false, win_monza: false, win_silverstone: false, win_spa: false, stat_wins: 0, stat_podiums: 0, stat_titles: 0, stat_starts: 11, stat_points: 6, stat_fastest_laps: 0, stat_seasons: 2 },
-            
-            // --- Recent 2010s-2020s (Expanded) ---
             { id: "kubica", name: "Robert Kubica", teams: ["BMW Sauber", "Renault", "Williams", "Alfa Romeo"], timeline: [{t:"Alfa Romeo", y:"2021"}, {t:"Williams", y:"2019"}, {t:"Renault", y:"2010"}, {t:"BMW Sauber", y:"2006-2009"}], country: "Poland", champion: false, wins: true, podiums: true, poles: true, win_monaco: false, win_monza: false, win_silverstone: false, win_spa: false, stat_wins: 1, stat_podiums: 12, stat_titles: 0, stat_starts: 99, stat_points: 274, stat_fastest_laps: 1, stat_seasons: 8 },
             { id: "devries", name: "Nyck de Vries", teams: ["Williams", "AlphaTauri"], timeline: [{t:"AlphaTauri", y:"2023"}, {t:"Williams", y:"2022"}], country: "Netherlands", champion: false, wins: false, podiums: false, poles: false, win_monaco: false, win_monza: false, win_silverstone: false, win_spa: false, stat_wins: 0, stat_podiums: 0, stat_titles: 0, stat_starts: 11, stat_points: 2, stat_fastest_laps: 0, stat_seasons: 2 },
             { id: "latifi", name: "Nicholas Latifi", teams: ["Williams"], timeline: [{t:"Williams", y:"2020-2022"}], country: "Canada", champion: false, wins: false, podiums: false, poles: false, win_monaco: false, win_monza: false, win_silverstone: false, win_spa: false, stat_wins: 0, stat_podiums: 0, stat_titles: 0, stat_starts: 61, stat_points: 9, stat_fastest_laps: 0, stat_seasons: 3 },
@@ -446,8 +558,6 @@
             { id: "bernoldi", name: "Enrique Bernoldi", teams: ["Arrows"], timeline: [{t:"Arrows", y:"2001-2002"}], country: "Brazil", champion: false, wins: false, podiums: false, poles: false, win_monaco: false, win_monza: false, win_silverstone: false, win_spa: false, stat_wins: 0, stat_podiums: 0, stat_titles: 0, stat_starts: 28, stat_points: 0, stat_fastest_laps: 0, stat_seasons: 2 },
             { id: "marques", name: "Tarso Marques", teams: ["Minardi"], timeline: [{t:"Minardi", y:"2001"}, {t:"Minardi", y:"1996-1997"}], country: "Brazil", champion: false, wins: false, podiums: false, poles: false, win_monaco: false, win_monza: false, win_silverstone: false, win_spa: false, stat_wins: 0, stat_podiums: 0, stat_titles: 0, stat_starts: 24, stat_points: 0, stat_fastest_laps: 0, stat_seasons: 3 },
             { id: "burti", name: "Luciano Burti", teams: ["Jaguar", "Prost"], timeline: [{t:"Prost", y:"2001"}, {t:"Jaguar", y:"2000-2001"}], country: "Brazil", champion: false, wins: false, podiums: false, poles: false, win_monaco: false, win_monza: false, win_silverstone: false, win_spa: false, stat_wins: 0, stat_podiums: 0, stat_titles: 0, stat_starts: 14, stat_points: 0, stat_fastest_laps: 0, stat_seasons: 2 },
-
-            // --- Existing Legends (Kept from original) ---
             { id: "valtteri", name: "Valtteri Bottas", teams: ["Sauber", "Mercedes", "Williams", "Alfa Romeo"], timeline: [{t:"Sauber/Alfa", y:"2022-2024"}, {t:"Mercedes", y:"2017-2021"}, {t:"Williams", y:"2013-2016"}], country: "Finland", champion: false, wins: true, podiums: true, poles: true, win_monaco: false, win_monza: false, win_silverstone: false, win_spa: false, stat_wins: 10, stat_podiums: 67, stat_titles: 0, stat_starts: 246, stat_points: 1797, stat_fastest_laps: 19, stat_seasons: 12 },
             { id: "kevin", name: "Kevin Magnussen", teams: ["Haas", "Renault", "McLaren"], timeline: [{t:"Haas", y:"2022-2024"}, {t:"Haas", y:"2017-2020"}, {t:"Renault", y:"2016"}, {t:"McLaren", y:"2014-2015"}], country: "Denmark", champion: false, wins: false, podiums: true, poles: true, win_monaco: false, win_monza: false, win_silverstone: false, win_spa: false, stat_wins: 0, stat_podiums: 1, stat_titles: 0, stat_starts: 186, stat_points: 200, stat_fastest_laps: 2, stat_seasons: 10 },
             { id: "zhou", name: "Guanyu Zhou", teams: ["Sauber", "Alfa Romeo"], timeline: [{t:"Sauber/Alfa", y:"2022-2024"}], country: "China", champion: false, wins: false, podiums: false, poles: false, win_monaco: false, win_monza: false, win_silverstone: false, win_spa: false, stat_wins: 0, stat_podiums: 0, stat_titles: 0, stat_starts: 66, stat_points: 12, stat_fastest_laps: 2, stat_seasons: 3 },
@@ -526,7 +636,6 @@
         drivers.forEach(d => {
             d.stat_teams_count = d.teams.length;
             d.stat_ppr = d.stat_starts > 0 ? (d.stat_points / d.stat_starts).toFixed(2) : 0;
-            // Ensure timeline exists for new drivers if missing (fallback)
             if (!d.timeline) d.timeline = d.teams.map(t => ({t: t, y: "???"}));
         });
 
@@ -658,6 +767,7 @@
         }
 
         function startGame(mode, sm = 'infinite') {
+            SoundManager.play('start'); // SOUND: Start Game
             currentMode = mode;
             subMode = sm;
             
@@ -808,6 +918,7 @@
         }
 
         function handleCellClick(row, col) {
+            SoundManager.play('click');
             if (currentMode === 'solo' && lives <= 0) return;
             if (currentMode === 'versus' && boardState[row][col]) return;
             selectedCell = { r: row, c: col };
@@ -829,6 +940,7 @@
             const btn = document.getElementById(`cell-${selectedCell.r}-${selectedCell.c}`);
 
             if (isMatch(driver, rowCrit, colCrit)) {
+                SoundManager.play('success'); // SOUND: Correct
                 usedDriverIds.push(driverId); 
                 let styleClass = '';
                 if (currentMode === 'versus') {
@@ -845,6 +957,7 @@
                 btn.disabled = true;
                 checkWinCondition();
             } else {
+                SoundManager.play('error'); // SOUND: Error
                 btn.classList.add('wrong-answer');
                 setTimeout(() => btn.classList.remove('wrong-answer'), 500);
                 if (currentMode === 'solo') {
@@ -879,6 +992,13 @@
             const overlay = document.getElementById('game-over-overlay');
             const title = document.getElementById('game-over-title');
             const msg = document.getElementById('game-over-message');
+            
+            if (win || (player && player > 0)) {
+                SoundManager.play('win'); // SOUND: Victory
+            } else {
+                SoundManager.play('gameover'); // SOUND: Game Over
+            }
+
             overlay.classList.remove('hidden');
             if (currentMode === 'versus') {
                 if (player === 1) { title.innerText = "PLAYER 1 " + t('win_msg'); title.className = "text-4xl font-bold mb-4 text-blue-400"; }
@@ -909,6 +1029,7 @@
             if (subMode === 'daily' && triviaRound > triviaMaxRounds) {
                 // DAILY COMPLETED
                 setDailyPlayed(currentMode);
+                SoundManager.play('win');
                 content.innerHTML = `<h3 class="text-3xl font-bold mb-4">Risultati di Oggi</h3><p class="text-6xl font-black mb-4 ${triviaScore >= 3 ? 'text-green-500':'text-red-500'}">${triviaScore}/${triviaMaxRounds}</p><p class="text-gray-400">Torna domani!</p>`;
                 document.getElementById('trivia-title').innerText = "";
                 return;
@@ -975,7 +1096,7 @@
                     <p class="text-sm text-gray-400 uppercase tracking-widest mb-4 sticky top-0 bg-gray-900/95 py-2 z-20 w-full text-center border-b border-gray-700">${t('career_path')}</p>
                     ${timelineHtml}
                 </div>
-                <button onclick="openTriviaSearch()" class="bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-500 hover:to-orange-500 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-transform hover:scale-105 animate-pulse mt-auto">
+                <button onclick="SoundManager.play('click'); openTriviaSearch()" class="bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-500 hover:to-orange-500 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-transform hover:scale-105 animate-pulse mt-auto">
                     <i class="fas fa-search mr-2"></i> ${t('btn_guess')}
                 </button>
                 <div id="trivia-feedback" class="mt-4 font-bold text-xl min-h-[30px] w-full text-center"></div>
@@ -1094,10 +1215,12 @@
             const nextBtn = document.getElementById('trivia-next-btn');
             
             if (driverId === triviaTarget.id) {
+                SoundManager.play('success');
                 feedback.innerHTML = `<span class="text-green-400 text-2xl animate-bounce inline-block"><i class="fas fa-check-circle"></i></span> <br> <span class="text-green-300">${triviaTarget.name}</span>`;
                 triviaScore++;
                 nextBtn.classList.remove('hidden');
             } else {
+                SoundManager.play('error');
                 triviaLives--;
                 updateTriviaLivesUI();
                 
@@ -1130,9 +1253,11 @@
             document.getElementById('val-B').innerText = valB;
 
             if (isCorrect) {
+                SoundManager.play('success');
                 feedback.innerHTML = `<span class="text-green-400 font-black tracking-widest text-2xl">WIN!</span>`;
                 triviaScore++;
             } else {
+                SoundManager.play('error');
                 feedback.innerHTML = `<span class="text-red-500 font-black tracking-widest text-2xl">FAIL</span>`;
                 if (subMode === 'infinite') triviaScore = 0;
             }
@@ -1220,5 +1345,4 @@
         updateUIText();
     </script>
 </body>
-
 </html>
